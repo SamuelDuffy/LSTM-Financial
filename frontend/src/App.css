@@ -1,125 +1,196 @@
 :root {
-  --primary-color: #007bff;
-  --bg-color: #f8f9fa;
+  --primary-color: #3f51b5; /* Indigo looks better than pure blue */
+  --bg-color: #e8eaf6; /* Subtle lavender background */
   --card-bg: #ffffff;
   --text-color: #343a40;
-  --border-color: #dee2e6;
-  --error-color: #dc3545;
-  --container-padding-vertical: 1rem; /* reduced top padding for tighter look */
+  --secondary-text-color: #616161; /* Muted text for descriptions */
+  --border-color: #c5cae9; /* Matches the theme */
+  --error-color: #d32f2f; /* Material red for errors */
+  --accent-color: #ffc107; /* Yellow for highlights if needed */
 }
 
-*,
-*::before,
-*::after {
+*, *::before, *::after {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  justify-content: center; 
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Roboto', sans-serif; /* Much cleaner than default fonts */
   background-color: var(--bg-color);
   color: var(--text-color);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+  /* Removed flex centering from body - was causing issues */
 }
 
 .container {
   max-width: 1200px;
-  margin: 0 auto;
-  /* less vertical padding so header sits closer to top at page load */
-  padding: var(--container-padding-vertical) 1.25rem 2rem;
+  margin: 0 auto; /* Simple centering */
+  padding: 1.5rem 1.25rem 2rem; /* More breathing room */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center everything horizontally */
 }
 
-/* header normalization: remove default margins and make spacing explicit */
 .site-header {
   text-align: center;
-  padding: 0.5rem 0 1rem;
-  margin: 0;
+  padding: 1.5rem 0 2rem; /* Extra space around header */
+  margin-bottom: 1.5rem;
+  width: 100%; /* Full width header */
 }
 
-/* remove default margins of h1/p to avoid collapsing/misalignment */
 .site-header h1 {
   margin: 0;
-  font-size: 1.75rem;
-  line-height: 1.15;
-  font-weight: 700;
+  font-size: 2.2rem; /* Big title for impact */
+  color: var(--primary-color);
 }
 
 .site-header .subtitle {
-  margin: 0.5rem auto 0;
-  max-width: 820px; /* keeps the subtitle width in-check so it centers exactly under the title */
-  color: rgba(52, 58, 64, 0.85);
-  font-size: 0.98rem;
+  margin: 0.8rem auto 0;
+  max-width: 800px;
+  color: var(--secondary-text-color);
+  font-size: 1.05rem;
+  line-height: 1.5;
 }
 
-/* Controls layout tweaks */
-/* align-items center so form controls don't create baseline shifts when tall elements appear */
-.controls {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center; /* changed from flex-end */
-  gap: 1.5rem;
-  padding: 1.25rem;
-  background-color: var(--card-bg);
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.06);
-  margin-bottom: 2rem;
-  transition: box-shadow 0.18s ease;
+main {
+    width: 100%; /* Take full width of container */
+    max-width: 900px; /* But cap it for readability */
+}
+
+/* Card-based layout for better organization */
+.section-card {
+    background-color: var(--card-bg);
+    padding: 1.5rem 2rem; /* Generous padding */
+    border-radius: 10px; /* Rounded corners look modern */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Subtle depth */
+    margin-bottom: 2rem; /* Space between sections */
+    text-align: center; /* Center text by default */
+    width: 100%;
+}
+
+.section-card h2 {
+    color: var(--primary-color);
+    margin-top: 0;
+    margin-bottom: 0.8rem;
+    font-size: 1.7rem;
+}
+
+.section-description {
+    color: var(--secondary-text-color);
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    max-width: 600px; /* Don't let descriptions get too wide */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Grid layout for form inputs */
+.controls-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Responsive columns */
+    gap: 1.2rem; /* Space between inputs */
+    padding: 1rem 0;
+    /* Removed card styling - parent handles it now */
 }
 
 .input-group {
   display: flex;
   flex-direction: column;
-  min-width: 140px;
+  text-align: left; /* Labels should be left-aligned */
 }
 
 .input-group label {
-  font-size: 0.875rem;
-  margin-bottom: 0.25rem;
+  font-size: 0.9rem;
+  margin-bottom: 0.4rem; /* Space under labels */
   font-weight: 500;
+  color: var(--text-color);
 }
 
-input[type="text"], input[type="date"] {
-  padding: 0.5rem;
+input[type="text"], input[type="date"], input[type="number"] {
+  padding: 0.65rem 0.8rem; /* Comfortable input padding */
   border: 1px solid var(--border-color);
-  border-radius: 4px;
+  border-radius: 6px; /* Slightly rounded inputs */
   font-size: 1rem;
-  background: white;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Slight visual polish for button */
+input[type="text"]:focus, input[type="date"]:focus, input[type="number"]:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(63, 81, 181, 0.2); /* Nice focus ring */
+    outline: none;
+}
+
+/* Button styling */
+.button-container {
+    text-align: center;
+    margin: 2rem 0; /* Space around button */
+}
+
 button {
-  padding: 0.6rem 1.5rem;
+  padding: 0.8rem 2.5rem; /* Big clickable area */
   border: none;
   background-color: var(--primary-color);
   color: white;
-  border-radius: 6px;
-  font-size: 1rem;
+  border-radius: 8px; /* Rounded button */
+  font-size: 1.1rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.18s ease, transform 0.08s ease;
-  align-self: center;
+  transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 button:hover:not(:disabled) {
-  background-color: #0056b3;
-  transform: translateY(-1px);
+  background-color: #303f9f; /* Darker on hover */
+  transform: translateY(-2px); /* Subtle lift effect */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 
 button:disabled {
-  background-color: #6c757d;
+  background-color: #9e9e9e;
   cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Training progress display */
+.training-status {
+    /* Uses section-card styling */
+    padding: 2rem;
+}
+
+.training-status h3 {
+    margin-top: 0;
+    color: var(--primary-color);
+}
+
+.training-log {
+    text-align: left;
+    max-height: 250px; /* Scrollable log area */
+    overflow-y: auto;
+    background-color: #fafafa;
+    border: 1px solid #e0e0e0;
+    padding: 1.2rem;
+    margin-top: 1.5rem;
+    border-radius: 8px;
+    font-family: 'Fira Code', 'Courier New', monospace; /* Monospace for logs */
+    font-size: 0.88rem;
+    line-height: 1.4;
+}
+
+.training-log ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
 }
 
 .loader {
-  border: 5px solid #f3f3f3;
+  border: 5px solid #e0e0e0;
   border-top: 5px solid var(--primary-color);
   border-radius: 50%;
   width: 50px;
   height: 50px;
   animation: spin 1s linear infinite;
-  margin: 2rem auto;
+  margin: 1.5rem auto;
 }
 
 @keyframes spin {
@@ -129,80 +200,183 @@ button:disabled {
 
 .error-message {
   color: var(--error-color);
-  text-align: center;
-  background-color: #f8d7da;
-  padding: 1rem;
-  border: 1px solid #f5c6cb;
-  border-radius: 4px;
+  background-color: #ffebee; /* Light red background for errors */
+  border: 1px solid #ef9a9a;
+  padding: 1.2rem;
+  border-radius: 8px;
+  font-weight: 500;
 }
 
 .results-container {
-  margin-top: 2rem;
+  margin-top: 2.5rem;
+  width: 100%;
+  max-width: 900px; /* Match main content width */
 }
 
-.results-container h2, .plot-card h3, .anomalies-table h3 {
-  text-align: center;
-  margin-bottom: 1.25rem;
+.results-title {
+    text-align: center;
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
 }
 
-.plots {
+.results-summary {
+    text-align: center;
+    font-size: 1.1rem;
+    padding: 1rem;
+    /* Inherits card styling */
+    margin-bottom: 2rem;
+    max-width: 700px; /* Wider summary */
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.5;
+}
+
+.results-summary strong {
+    color: var(--primary-color);
+}
+.results-summary small {
+    color: var(--secondary-text-color);
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+}
+
+/* Side-by-side plots layout */
+.plots-section-top {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
+  grid-template-columns: 1fr 1fr; /* Equal width columns */
+  gap: 2rem; /* Space between plots */
   margin-bottom: 2rem;
 }
 
 .plot-card {
   background-color: var(--card-bg);
-  padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+  padding: 1.5rem;
+  border-radius: 10px; /* Consistent rounding */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Consistent shadows */
+  text-align: center;
+}
+
+.plot-card h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    font-size: 1.4rem;
 }
 
 .plot-card img {
   max-width: 100%;
   height: auto;
   border: 1px solid var(--border-color);
-  border-radius: 5px;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Subtle image shadow */
+}
+
+.plot-card.full-width {
+    grid-column: 1 / -1; /* Span both columns */
+    margin-bottom: 2rem;
 }
 
 .anomalies-table {
-  background-color: var(--card-bg);
-  padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+  /* Uses card styling */
+  padding: 2rem;
+}
+
+.anomalies-table h3 {
+    margin-top: 0;
+    color: var(--primary-color);
+    font-size: 1.5rem;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Table shadow */
 }
 
 th, td {
   border-bottom: 1px solid var(--border-color);
-  padding: 0.75rem;
+  padding: 0.9rem 1.2rem; /* Comfortable cell padding */
   text-align: left;
 }
 
 th {
-  background-color: #f2f2f2;
+  background-color: #f0f0f0;
+  font-weight: 600;
+  color: var(--text-color);
 }
 
 tr:nth-child(even) {
-  background-color: #f9f9f9;
+  background-color: #fbfbfc; /* Alternating row colors */
 }
 
-@media (max-width: 768px) {
-  .plots {
-    grid-template-columns: 1fr;
-  }
-  .controls {
-    flex-direction: column;
-    align-items: stretch;
+tr:hover {
+    background-color: #e3f2fd; /* Highlight on hover */
+}
 
-  }
-  .input-group {
+.anomalies-table p {
+    color: var(--secondary-text-color);
+    font-style: italic;
+    margin-top: 1.5rem;
+}
+
+.site-footer {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e0e0e0;
+    color: var(--secondary-text-color);
+    font-size: 0.9rem;
     width: 100%;
-  }
+    max-width: 900px; /* Match content width */
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .site-header h1 {
+        font-size: 1.8rem;
+    }
+    .site-header .subtitle {
+        font-size: 0.95rem;
+    }
+    .section-card {
+        padding: 1.2rem 1.5rem;
+    }
+    .section-card h2 {
+        font-size: 1.5rem;
+    }
+    .controls-grid {
+        grid-template-columns: 1fr; /* Stack vertically on mobile */
+    }
+    .button-container button {
+        padding: 0.7rem 2rem;
+        font-size: 1rem;
+    }
+    /* Stack plots vertically on mobile */
+    .plots-section-top {
+        grid-template-columns: 1fr;
+    }
+    .plot-card.full-width {
+        grid-column: auto; /* Reset for mobile */
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 1rem 0.8rem;
+    }
+    .site-header h1 {
+        font-size: 1.5rem;
+    }
+    .site-header .subtitle {
+        font-size: 0.85rem;
+    }
+    .section-card {
+        padding: 1rem;
+    }
+    .plot-card {
+        padding: 1rem;
+    }
 }
